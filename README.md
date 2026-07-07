@@ -100,4 +100,4 @@ CI in this repository runs the action against test fixtures on `macos-latest`.
 
 ## License
 
-Apache 2.0 — see [LICENSE](LICENSE).
+MIT — see [LICENSE](LICENSE).
