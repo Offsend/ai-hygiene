@@ -1,0 +1,5 @@
+version: 1
+
+check:
+  policy: true
+  fail_on: block

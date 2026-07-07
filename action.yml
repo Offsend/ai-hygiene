@@ -1,0 +1,56 @@
+name: Offsend
+description: Check AI-context risks — secrets, ignore files, and workspace hygiene before AI tools read your repo.
+author: Offsend
+branding:
+  icon: shield
+  color: blue
+
+inputs:
+  path:
+    description: Repository path to scan, relative to the workflow working directory.
+    required: false
+    default: .
+  staged:
+    description: Scan only git-staged files. Useful on pull requests.
+    required: false
+    default: "false"
+  policy:
+    description: Include AI ignore files and workspace policy checks.
+    required: false
+    default: "true"
+  fail-on:
+    description: Exit policy — `block`, `warn`, or `none`.
+    required: false
+    default: block
+  format:
+    description: Output format — `text` or `json`.
+    required: false
+    default: text
+  quiet:
+    description: Only print findings and errors.
+    required: false
+    default: "false"
+  version:
+    description: offsend-cli release version to install from Offsend/Offsend.
+    required: false
+    default: "0.5.0"
+
+runs:
+  using: composite
+  steps:
+    - name: Install offsend CLI
+      shell: bash
+      env:
+        OFFSEND_VERSION: ${{ inputs.version }}
+      run: bash "${{ github.action_path }}/scripts/install.sh"
+
+    - name: Run Offsend check
+      shell: bash
+      env:
+        OFFSEND_PATH: ${{ inputs.path }}
+        OFFSEND_STAGED: ${{ inputs.staged }}
+        OFFSEND_POLICY: ${{ inputs.policy }}
+        OFFSEND_FAIL_ON: ${{ inputs.fail-on }}
+        OFFSEND_FORMAT: ${{ inputs.format }}
+        OFFSEND_QUIET: ${{ inputs.quiet }}
+      run: bash "${{ github.action_path }}/scripts/run.sh"

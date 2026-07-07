@@ -1,0 +1,6 @@
+# Local test artifacts
+offsend-report.json
+*.zip
+
+# macOS
+.DS_Store

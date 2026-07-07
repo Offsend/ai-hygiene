@@ -1,0 +1,59 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+concurrency:
+  group: ci-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  validate:
+    name: Validate action metadata
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Check required files
+        run: |
+          set -euo pipefail
+          test -f action.yml
+          test -x scripts/install.sh
+          test -x scripts/run.sh
+          test -f scripts/versions.json
+
+      - name: Validate action.yml
+        run: ruby -ryaml -e "YAML.load_file('action.yml')"
+
+  test-check-fails:
+    name: Check mode fails on secrets
+    runs-on: macos-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Run check on fixture
+        id: check
+        uses: ./
+        with:
+          path: test/fixtures/repo-with-secret
+          policy: "true"
+          fail-on: block
+        continue-on-error: true
+
+      - name: Assert workflow step failed
+        run: test "${{ steps.check.outcome }}" = "failure"
+
+  test-check-passes:
+    name: Check mode passes on clean repo
+    runs-on: macos-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Run check on clean fixture
+        uses: ./
+        with:
+          path: test/fixtures/clean-repo
+          policy: "true"
+          fail-on: block
