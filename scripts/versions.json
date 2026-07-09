@@ -1,5 +1,18 @@
 {
   "0.5.0": {
-    "sha256": "65499b49375220d0ed1dd204ff74f01ed91c2e613116242d097618db882f5c8a"
+    "darwin": {
+      "sha256": "65499b49375220d0ed1dd204ff74f01ed91c2e613116242d097618db882f5c8a"
+    }
+  },
+  "0.10.0": {
+    "darwin": {
+      "sha256": "845640ce73c40235926c2bc9f26cf5209300dd6885b5a35830ea4cd6b3d98931"
+    },
+    "linux-x86_64": {
+      "sha256": "e20efab04db78b9b0629a00188c143a0565e0dee190d721b4522a43cbe270ed3"
+    },
+    "linux-aarch64": {
+      "sha256": "b8b61eac37f84df4ad005e7df693594063583acddc3d6e8cba18add04518ee2e"
+    }
   }
 }

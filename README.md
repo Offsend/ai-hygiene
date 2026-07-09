@@ -14,10 +14,9 @@ Part of [Offsend](https://offsend.io/) — local-first tools that help developer
 
 ## Requirements
 
-- **Runner:** `macos-latest` (or any macOS GitHub-hosted / self-hosted runner)
+- **Runner:** `ubuntu-latest` or `macos-latest` (GitHub-hosted or self-hosted)
 - The action downloads [`offsend-cli`](https://github.com/Offsend/Offsend/releases) from GitHub Releases — no Homebrew required
-
-> Linux runners (`ubuntu-latest`) are not supported yet because `offsend-cli` ships as a macOS binary.
+- Linux: `x86_64` / `aarch64` tarballs · macOS: universal zip with frameworks
 
 ## Usage
 
@@ -33,7 +32,7 @@ on:
 
 jobs:
   offsend:
-    runs-on: macos-latest
+    runs-on: ubuntu-latest
     permissions:
       contents: read
     steps:
@@ -68,7 +67,7 @@ jobs:
 | `fail-on` | No | `block` | Exit policy: `block`, `warn`, or `none` |
 | `format` | No | `text` | Output format: `text` or `json` |
 | `quiet` | No | `false` | Only print findings and errors |
-| `version` | No | `0.5.0` | `offsend-cli` release version to install |
+| `version` | No | `0.10.0` | `offsend-cli` release version to install |
 
 ## Project configuration
 
@@ -92,11 +91,11 @@ uses: Offsend/offsend-action@v1.0.0
 
 ```bash
 chmod +x scripts/*.sh
-OFFSEND_VERSION=0.5.0 ./scripts/install.sh
+OFFSEND_VERSION=0.10.0 ./scripts/install.sh
 OFFSEND_PATH=. OFFSEND_POLICY=true ./scripts/run.sh
 ```
 
-CI in this repository runs the action against test fixtures on `macos-latest`.
+CI in this repository runs the action against test fixtures on `ubuntu-latest` and `macos-latest`.
 
 ## License
 

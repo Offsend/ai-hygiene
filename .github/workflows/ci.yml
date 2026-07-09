@@ -27,9 +27,16 @@ jobs:
       - name: Validate action.yml
         run: ruby -ryaml -e "YAML.load_file('action.yml')"
 
+      - name: Validate versions.json
+        run: python3 -c "import json; json.load(open('scripts/versions.json'))"
+
   test-check-fails:
-    name: Check mode fails on secrets
-    runs-on: macos-latest
+    name: Check mode fails on secrets (${{ matrix.os }})
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, macos-latest]
+    runs-on: ${{ matrix.os }}
     steps:
       - uses: actions/checkout@v4
 
@@ -46,8 +53,12 @@ jobs:
         run: test "${{ steps.check.outcome }}" = "failure"
 
   test-check-passes:
-    name: Check mode passes on clean repo
-    runs-on: macos-latest
+    name: Check mode passes on clean repo (${{ matrix.os }})
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, macos-latest]
+    runs-on: ${{ matrix.os }}
     steps:
       - uses: actions/checkout@v4
 
