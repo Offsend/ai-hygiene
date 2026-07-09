@@ -6,7 +6,7 @@ CI check for **AI-context risks**: secrets in the tree, missing AI ignore files,
 
 ```yaml
 - uses: actions/checkout@v4
-- uses: Offsend/offsend-action@v1
+- uses: Offsend/ai-hygiene@v1
   with:
     fail-on: block
 ```
@@ -52,7 +52,7 @@ jobs:
       contents: read
     steps:
       - uses: actions/checkout@v4
-      - uses: Offsend/offsend-action@v1
+      - uses: Offsend/ai-hygiene@v1
         with:
           fail-on: block
 ```
@@ -60,7 +60,7 @@ jobs:
 ### Scan only staged changes (PRs)
 
 ```yaml
-- uses: Offsend/offsend-action@v1
+- uses: Offsend/ai-hygiene@v1
   with:
     staged: "true"
     fail-on: block
@@ -69,7 +69,7 @@ jobs:
 ### Warn without failing CI
 
 ```yaml
-- uses: Offsend/offsend-action@v1
+- uses: Offsend/ai-hygiene@v1
   with:
     fail-on: warn
 ```
@@ -94,8 +94,8 @@ jobs:
 ## Versioning
 
 ```yaml
-uses: Offsend/offsend-action@v1        # latest v1.x
-uses: Offsend/offsend-action@v1.0.0    # exact release
+uses: Offsend/ai-hygiene@v1        # latest v1.x
+uses: Offsend/ai-hygiene@v1.0.0    # exact release
 ```
 
 ## Development
