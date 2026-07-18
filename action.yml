@@ -36,7 +36,7 @@ inputs:
   version:
     description: offsend-cli release version to install from Offsend/Offsend.
     required: false
-    default: "0.17.1"
+    default: "0.18.0"
 
 runs:
   using: composite
