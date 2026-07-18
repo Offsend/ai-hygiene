@@ -3,7 +3,9 @@ set -euo pipefail
 
 PATH_TO_SCAN="${OFFSEND_PATH:-.}"
 STAGED="${OFFSEND_STAGED:-false}"
-POLICY="${OFFSEND_POLICY:-true}"
+# Do not default to true: --policy overrides .offsend.yml check.policy.
+# Omit the flag unless explicitly enabled so project config applies (default false).
+POLICY="${OFFSEND_POLICY:-false}"
 FAIL_ON="${OFFSEND_FAIL_ON:-block}"
 FORMAT="${OFFSEND_FORMAT:-text}"
 QUIET="${OFFSEND_QUIET:-false}"

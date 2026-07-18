@@ -20,10 +20,12 @@ Part of [Offsend](https://offsend.io/).
 | Check | Example |
 | --- | --- |
 | Secrets & credentials | API keys, tokens, `.env` files committed to the repo |
-| AI ignore / policy gaps | Missing or incomplete `.cursorignore`, `.aiignore`, and related files |
+| AI ignore / policy gaps | Missing or incomplete `.cursorignore`, `.aiignore`, and related files (when policy is enabled) |
 | Workspace hygiene | Paths and patterns that widen what AI tools can see |
 
 Tune detectors and excludes with [`.offsend.yml`](https://github.com/Offsend/Offsend/blob/main/README.md#project-config-offsendyml) in your repository.
+
+By default the action follows that file: it does **not** pass `--policy`, so `check.policy` from `.offsend.yml` applies (template default is `false`). That matches repos that keep AI ignore files local via `ignore.commit: false` — those files are not in the CI checkout, so forcing policy would false-fail on “Missing … ignore file”.
 
 ## Badge
 
@@ -66,6 +68,17 @@ jobs:
     fail-on: block
 ```
 
+### Also fail on ignore-file / policy gaps
+
+Requires AI ignore files to be present in the checkout (e.g. `ignore.commit: true` in `.offsend.yml`, or generating them in a prior step):
+
+```yaml
+- uses: Offsend/ai-hygiene@v1
+  with:
+    policy: "true"
+    fail-on: block
+```
+
 ### Warn without failing CI
 
 ```yaml
@@ -80,7 +93,7 @@ jobs:
 | --- | --- | --- |
 | `path` | `.` | Path to scan (relative to the workflow working directory) |
 | `staged` | `false` | Scan only git-staged files |
-| `policy` | `true` | Include AI ignore files and workspace policy checks |
+| `policy` | `false` | Force `--policy`. When false, use `.offsend.yml` `check.policy` |
 | `fail-on` | `block` | `block` · `warn` · `none` |
 | `format` | `text` | `text` · `json` |
 | `quiet` | `false` | Print only findings and errors |
@@ -103,7 +116,9 @@ uses: Offsend/ai-hygiene@v1.0.0    # exact release
 ```bash
 chmod +x scripts/*.sh
 OFFSEND_VERSION=0.17.0 ./scripts/install.sh
-OFFSEND_PATH=. OFFSEND_POLICY=true ./scripts/run.sh
+OFFSEND_PATH=. ./scripts/run.sh
+# Force policy checks (fixtures ship ignore files):
+OFFSEND_PATH=test/fixtures/clean-repo OFFSEND_POLICY=true OFFSEND_FAIL_ON=block ./scripts/run.sh
 ```
 
 CI runs the action against fixtures on Ubuntu and macOS.

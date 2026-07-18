@@ -15,9 +15,12 @@ inputs:
     required: false
     default: "false"
   policy:
-    description: Include AI ignore files and workspace policy checks.
+    description: >-
+      When true, force `offsend check --policy`. When false (default), omit the
+      flag so `.offsend.yml` `check.policy` applies (CLI default false). Prefer
+      false when AI ignore files are untracked (`ignore.commit: false`).
     required: false
-    default: "true"
+    default: "false"
   fail-on:
     description: Exit policy — `block`, `warn`, or `none`.
     required: false
