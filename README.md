@@ -84,7 +84,7 @@ jobs:
 | `fail-on` | `block` | `block` · `warn` · `none` |
 | `format` | `text` | `text` · `json` |
 | `quiet` | `false` | Print only findings and errors |
-| `version` | `0.17.0` | `offsend-cli` release to install |
+| `version` | `0.17.1` | `offsend-cli` release to install |
 
 ## Requirements
 
@@ -102,7 +102,7 @@ uses: Offsend/ai-hygiene@v1.0.0    # exact release
 
 ```bash
 chmod +x scripts/*.sh
-OFFSEND_VERSION=0.17.0 ./scripts/install.sh
+OFFSEND_VERSION=0.17.1 ./scripts/install.sh
 OFFSEND_PATH=. OFFSEND_POLICY=true ./scripts/run.sh
 ```
 
