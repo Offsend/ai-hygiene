@@ -97,7 +97,7 @@ Requires AI ignore files to be present in the checkout (e.g. `ignore.commit: tru
 | `fail-on` | `block` | `block` · `warn` · `none` |
 | `format` | `text` | `text` · `json` |
 | `quiet` | `false` | Print only findings and errors |
-| `version` | `0.18.0` | `offsend-cli` release to install |
+| `version` | `0.19.0` | `offsend-cli` release to install |
 
 ## Requirements
 
@@ -115,7 +115,7 @@ uses: Offsend/ai-hygiene@v1.0.0    # exact release
 
 ```bash
 chmod +x scripts/*.sh
-OFFSEND_VERSION=0.18.0 ./scripts/install.sh
+OFFSEND_VERSION=0.19.0 ./scripts/install.sh
 OFFSEND_PATH=. ./scripts/run.sh
 # Force policy checks (fixtures ship ignore files):
 OFFSEND_PATH=test/fixtures/clean-repo OFFSEND_POLICY=true OFFSEND_FAIL_ON=block ./scripts/run.sh
